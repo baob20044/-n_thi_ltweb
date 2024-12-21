@@ -1,0 +1,71 @@
+﻿@model Test1.Controllers.ProductController.ProductViewModel
+@{
+    ViewBag.Title = "CreateProduct";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm("CreateProduct", "Product", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.sanpham.TenSanpham)
+        @Html.TextBoxFor(m => m.sanpham.TenSanpham, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.sanpham.TenSanpham)
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.sanpham.MoTa)
+        @Html.TextBoxFor(m => m.sanpham.MoTa, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.sanpham.MoTa)
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.sanpham.Gia)
+        @Html.TextBoxFor(m => m.sanpham.Gia, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.sanpham.Gia)
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.sanpham.TrangThai)
+        @Html.TextBoxFor(m => m.sanpham.TrangThai, new { @class = "form-control", placeholder = "Enter 0 or 1" })
+        @Html.ValidationMessageFor(m => m.sanpham.TrangThai)
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.sanpham.NoiBat)
+        @Html.TextBoxFor(m => m.sanpham.NoiBat, new { @class = "form-control", placeholder = "Enter 0 or 1" })
+        @Html.ValidationMessageFor(m => m.sanpham.NoiBat)
+    </div>
+
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.sanpham.PhanLoaiSanPhamID)
+        @Html.DropDownListFor(m => m.sanpham.PhanLoaiSanPhamID, new SelectList(Model.phanLoaiSanPham, "PhanLoaiSanPhamID", "TenPhanLoai"), "-- Select Category --", new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.sanpham.PhanLoaiSanPhamID)
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.sanpham.AnhDaiDien)
+        <input type="file" name="AnhDaiDienFile" class="form-control" />
+        <span asp-validationfor="AnhDaiDien"></span>
+        @Html.ValidationMessageFor(m => m.sanpham.AnhDaiDien, "", new { @class = "form-control" })
+    </div>
+
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">Create Product</button>
+    </div>
+    <script>
+        document.getElementById("AnhDaiDien").addEventListener("change", function () {
+            var file = this.files[0];
+            var allowedExtensions = /(\.jpg)$/i;
+            if (!allowedExtensions.exec(file.name)) {
+                alert("Please upload a .jpg file.");
+                this.value = ""; // Clear the input
+            }
+        });
+    </script>
+}
+
+
+
